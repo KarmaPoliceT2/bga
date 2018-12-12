@@ -1,0 +1,3 @@
+[run]
+source = bga
+omit = bga/test*
