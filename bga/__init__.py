@@ -1,4 +1,6 @@
 from pyramid.config import Configurator
+from pyramid.authentication import AuthTktAuthenticationPolicy
+from pyramid.authorization import ACLAuthorizationPolicy
 
 
 def main(global_config, **settings):
@@ -6,6 +8,11 @@ def main(global_config, **settings):
     """
     with Configurator(settings=settings) as config:
         config.include('.models')
+        authn_policy = AuthTktAuthenticationPolicy(
+            settings['auth.secret'])
+        authz_policy = ACLAuthorizationPolicy()
+        config.set_authentication_policy(authn_policy)
+        config.set_authorization_policy(authz_policy)
         config.include('pyramid_jinja2')
         config.include('.routes')
         config.scan()

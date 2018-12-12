@@ -23,7 +23,8 @@ requires = [
     'wtforms',
     'webhelpers2',
     'passlib',
-    'bigchaindb-driver'
+    'bigchaindb-driver',
+    'bcrypt'
 ]
 
 tests_require = [
