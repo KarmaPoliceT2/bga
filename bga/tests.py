@@ -21,7 +21,7 @@ class BaseTest(unittest.TestCase):
             get_engine,
             get_session_factory,
             get_tm_session,
-            )
+        )
 
         self.engine = get_engine(settings)
         session_factory = get_session_factory(self.engine)
@@ -46,9 +46,9 @@ class TestMyViewSuccessCondition(BaseTest):
         super(TestMyViewSuccessCondition, self).setUp()
         self.init_database()
 
-        from .models import MyModel
+        from .models import User
 
-        model = MyModel(name='one', value=55)
+        model = User(name='admin', value=55)
         self.session.add(model)
 
     def test_passing_view(self):

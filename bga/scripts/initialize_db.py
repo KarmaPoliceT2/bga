@@ -12,7 +12,8 @@ def setup_models(dbsession):
     Add or update models / fixtures in the database.
 
     """
-    model = models.mymodel.MyModel(name='one', value=1)
+    model = models.user.User(name=u'admin', password=u'admin', pubkey="H7RKEB7Tqyqq9YVQ223Z3sErRiXoAc4nYG1dkmRCB9kX",
+                             privkey="7mfnQ6qTmQ8VwUhxH3pNUFd6kz4b1a3paDWgN4329KpV")
     dbsession.add(model)
 
 
