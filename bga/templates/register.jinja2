@@ -1,0 +1,59 @@
+{% extends 'layout.jinja2' %}
+
+{% block title %}
+BGA | User Registration
+{% endblock title %}
+
+{% block content %}
+<!-- Content -->
+<div id="content">
+
+	<!-- Fluid container -->
+	<div class="container-fluid">
+
+		<!-- Main content -->
+		<div class="row">
+			<div class="main-column col-12">
+
+				<div class="inner">
+				<!-- Login -->
+				{% if request.authenticated_userid %}
+					You're already registered and logged in as: <strong>{{request.authenticated_userid}}</strong> ::
+					<a href="{{request.route_url('auth',action='out')}}">Sign Out</a>
+				{% else %}
+					<form class="form" id="post-comment" action="{{request.route_url('register')}}" method="post">
+						<div class="row">
+							<div class="col-6">
+							{% for error in form.username.errors %}
+            					<div class="error">{{ error }}</div>
+        					{% endfor %}
+							</div>
+							<div class="col-6">
+							{% for error in form.password.errors %}
+            					<div class="error">{{error}}</div>
+        					{% endfor %}
+							</div>
+						<div class="row">
+							<div class="form-group col-6">
+								<label for="name">{{form.username.label}}</label>
+								{{form.username(class_='form-control')}}
+							</div>
+							<div class="form-group col-6">
+								<label for="password">{{form.password.label}}</label>
+								{{form.password(class_='form-control')}}
+							</div>
+						</div>
+						<button type="submit" class="btn btn-color"><i type="submit" class="glyphicon glyphicon-send"></i>Submit</button>
+						<button type="button" class="btn btn-color"><i class="glyphicon glyphicon-send"></i>Login</button>
+					</form>
+				{% endif %}
+				</div>
+
+			</div>
+			
+		</div>
+
+	</div>
+
+</div>
+{% endblock content%}
