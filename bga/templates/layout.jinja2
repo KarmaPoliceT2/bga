@@ -1,64 +1,122 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="{{request.locale_name}}">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<head>
+
+    <!-- Meta -->
+    <meta charset="UTF-8">
+    <title>{% block title %}No Title{% endblock title%}</title>
+    <meta name="keywords" content="Blockchain, Golf, Scorecards">
+    <meta name="description" content="Blockchain Golfers Association">
+    <meta name="author" content="R6 Themes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="pyramid web application">
-    <meta name="author" content="Pylons Project">
-    <link rel="shortcut icon" href="{{request.static_url('bga:static/pyramid-16x16.png')}}">
 
-    <title>Cookiecutter Starter project for the Pyramid Web Framework</title>
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="{{request.static_url('bga:static/img/favicons/favicon.png')}}">
+    <link rel="apple-touch-icon" href="{{request.static_url('bga:static/img/favicons/apple-touch-icon.png')}}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{request.static_url('bga:static/img/favicons/apple-touch-icon-72x72.png')}}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{request.static_url('bga:static/img/favicons/apple-touch-icon-114x114.png')}}">
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{request.static_url('bga:static/css/reset.css')}}">
+    <link rel="stylesheet" href="{{request.static_url('bga:static/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{request.static_url('bga:static/css/font-awesome.min.css')}}">
+    <link href="http://fonts.googleapis.com/css?family=Raleway:300|Muli:300" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{{request.static_url('bga:static/css/idangerous.swiper.css')}}">
+    <link rel="stylesheet" href="{{request.static_url('bga:static/css/style.css')}}">
 
-    <!-- Custom styles for this scaffold -->
-    <link href="{{request.static_url('bga:static/theme.css')}}" rel="stylesheet">
+</head>
 
-    <!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js" integrity="sha384-0s5Pv64cNZJieYFkXYOTId2HMA2Lfb6q2nAcx2n0RTLUnCAoTTsS0nKEO27XyKcY" crossorigin="anonymous"></script>
-      <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js" integrity="sha384-ZoaMbDF+4LeFxg6WdScQ9nnR1QC2MIRxA1O9KWEXQwns1G8UNyIEZIQidzb0T1fo" crossorigin="anonymous"></script>
-    <![endif]-->
-  </head>
+<body>
 
-  <body>
-
-    <div class="starter-template">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-2">
-            <img class="logo img-responsive" src="{{request.static_url('bga:static/pyramid.png') }}" alt="pyramid web framework">
-          </div>
-          <div class="col-md-10">
-            {% block content %}
-                <p>No content</p>
-            {% endblock content %}
-          </div>
-        </div>
-        <div class="row">
-          <div class="links">
-            <ul>
-              <li><i class="glyphicon glyphicon-cog icon-muted"></i><a href="https://github.com/Pylons/pyramid">Github Project</a></li>
-              <li><i class="glyphicon glyphicon-globe icon-muted"></i><a href="https://webchat.freenode.net/?channels=pyramid">IRC Channel</a></li>
-              <li><i class="glyphicon glyphicon-home icon-muted"></i><a href="https://pylonsproject.org">Pylons Project</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="row">
-          <div class="copyright">
-            Copyright &copy; Pylons Project
-          </div>
-        </div>
-      </div>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div id="status"></div>
     </div>
 
+    <!-- Overlay -->
+    <div id="overlay"></div>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="//code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  </body>
+    <!-- Top header -->
+    <div id="top">
+
+        <!-- Sidebar button -->
+        <a href="#" id="sidebar-button"></a>
+
+        <!-- Logo -->
+        <header id="logo">
+            <h1>BGA</h1>
+            <h2>Blockchain Golfers Association</h2>
+        </header>
+
+    </div>
+
+    <!-- Main wrapper -->
+    <div id="main-wrapper">
+
+        <!-- Content -->
+        <div id="content">
+
+        {% block content %}
+        <p>No Content</p>
+        {% endblock content %}
+
+        </div>
+
+        <!-- Collapsible sidebar -->
+        <div id="sidebar">
+
+            <!-- Widget Area -->
+            <div id="widgets">
+
+                <!-- Main menu -->
+                <nav id="mainmenu">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li>
+                            <a href="#">Portfolio</a>
+                            <ul>
+                                <li><a href="portfolio-2.html">2 Columns</a></li>
+                                <li><a href="portfolio-3.html">3 Columns</a></li>
+                                <li><a href="portfolio-4.html">4 Columns</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="team.html">Team</a></li>
+                        <li>
+                            <a href="#" class="active">Pages</a>
+                            <ul>
+                                <li><a href="404.html">404 page</a></li>
+                                <li><a href="elements.html">Elements</a></li>
+                                <li><a href="grid.html">Grid System</a></li>
+                                <li><a href="blog-single.html">Single Post</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+
+            </div>
+
+            <!-- Copyright -->
+            <footer>
+                <p class="copyright">© Copyright 2018 Chris Gill</p>
+            </footer>
+
+        </div>
+
+    </div>
+
+    <!-- JavaScripts -->
+    <script type='text/javascript' src="{{request.static_url('bga:static/js/jquery.min.js')}}"></script>
+    <script type='text/javascript' src="{{request.static_url('bga:static/js/bootstrap.min.js')}}"></script>
+    <script type='text/javascript' src="{{request.static_url('bga:static/js/swiper/idangerous.swiper.min.js')}}"></script>
+    <script type='text/javascript' src="{{request.static_url('bga:static/js/masonry/masonry.pkgd.min.js')}}"></script>
+    <script type='text/javascript' src="{{request.static_url('bga:static/js/isotope/jquery.isotope.min.js')}}"></script>
+    <script type='text/javascript' src="{{request.static_url('bga:static/js/custom.js')}}"></script>
+
+</body>
+
 </html>

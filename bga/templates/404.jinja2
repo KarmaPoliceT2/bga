@@ -1,8 +1,50 @@
-{% extends "layout.jinja2" %}
+{% extends 'layout.jinja2' %}
+
+{% block title %}
+BGA | 404 Error
+{% endblock title %}
 
 {% block content %}
-<div class="content">
-  <h1><span class="font-semi-bold">Pyramid</span> <span class="smaller">Starter project</span></h1>
-  <p class="lead"><span class="font-semi-bold">404</span> Page Not Found</p>
-</div>
+            <!-- Fluid container -->
+            <div class="container-fluid">
+
+                <!-- Page heading -->
+                <div id="heading" class="row">
+                    <div class="col-12">
+
+                        <header>
+                            <h1>Error 404</h1>
+                            <h2>Page not found</h2>
+                        </header>
+
+                    </div>
+                </div>
+
+                <!-- Main content -->
+                <div class="row">
+                    <div class="main-column col-12">
+
+                        <!-- Inner -->
+                        <div class="inner">
+
+                            <div class="row">
+                                <div class="col-6">
+
+                                    <p>The page you have requested does not exists.</p>
+                                    <p>Perhaps you are here because:</p>
+                                    <ul class="fa-ul">
+                                        <li><i class="fa-li fa fa-angle-right"></i>The page has moved</li>
+                                        <li><i class="fa-li fa fa-angle-right"></i>The page is deleted</li>
+                                        <li><i class="fa-li fa fa-angle-right"></i>You like 404 pages</li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
 {% endblock content %}
