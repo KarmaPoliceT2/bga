@@ -1,4 +1,5 @@
-from wtforms import Form, StringField, PasswordField, DecimalField, IntegerField, SelectField, DateField, validators
+from wtforms import Form, StringField, PasswordField, DecimalField, IntegerField, SelectField, validators
+from wtforms.fields.html5 import DateField
 
 
 def strip_filter(x): return x.strip() if x else None
@@ -26,7 +27,7 @@ class CreateCourseForm(Form):
 class CreateScoreForm(Form):
     course = SelectField('Course Name', choices=[(
         'abc', 'ABC Course'), ('123', '123 Course')])
-    rounddate = DateField('Round Date')
+    rounddate = DateField('Round Date', format='%Y-%m-%d')
     score = IntegerField('Round Score', [validators.NumberRange(
         min=55, max=155, message="Must Be Between 55-155")])
     attest = SelectField('Attesting Golfer')
