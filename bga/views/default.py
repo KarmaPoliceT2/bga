@@ -3,7 +3,7 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.security import remember, forget
 from ..services.user import UserService
 from ..models.user import User
-from ..forms import RegistrationForm, CreateCourseForm
+from ..forms import RegistrationForm, CreateCourseForm, CreateScoreForm
 
 
 @view_config(route_name='home', renderer='../templates/index.jinja2')
@@ -49,4 +49,13 @@ def create_course(request):
     if request.method == "POST" and form.validate():
         # DoStuffToPrepareSubmissionAndSendtoBDB
         return HTTPFound(location=request.route_url('courses'))
+    return {'form': form}
+
+
+@view_config(route_name='createscore', renderer='../templates/createscore.jinja2')
+def create_score(request):
+    form = CreateScoreForm(request.POST)
+    if request.method == "POST" and form.validate():
+        # DoStuffToPrepareSubmissionAndSendtoBDB
+        return HTTPFound(location=request.route_url('profile'))
     return {'form': form}

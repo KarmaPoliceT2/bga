@@ -1,0 +1,79 @@
+{% extends 'layout.jinja2' %}
+
+{% block title %}
+BGA | Enter a Score
+{% endblock title %}
+
+{% block content %}
+<!-- Content -->
+<div id="content">
+
+	<!-- Fluid container -->
+	<div class="container-fluid">
+
+		<!-- Main content -->
+		<div class="row">
+			<div class="main-column col-12">
+
+				<div class="inner">
+				<!-- Login -->
+				{% if request.authenticated_userid %}
+					<form class="form" id="post-comment" action="{{request.route_url('createscore')}}" method="post">
+						<div class="row">
+							<div class="col-6">
+							{% for error in form.course.errors %}
+            					<div class="error">{{ error }}</div>
+        					{% endfor %}
+							</div>
+							<div class="col-6">
+							{% for error in form.rounddate.errors %}
+            					<div class="error">{{error}}</div>
+        					{% endfor %}
+							</div>
+						<div class="row">
+							<div class="form-group col-6">
+								<label for="course">{{form.course.label}}</label>
+								{{form.course(class_='form-control')}}
+							</div>
+							<div class="form-group col-6">
+								<label for="rounddate">{{form.rounddate.label}}</label>
+								{{form.rounddate(class_='form-control')}}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-6">
+							{% for error in form.score.errors %}
+            					<div class="error">{{ error }}</div>
+        					{% endfor %}
+							</div>
+							<div class="col-6">
+							{% for error in form.attest.errors %}
+            					<div class="error">{{error}}</div>
+        					{% endfor %}
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-6">
+								<label for="score">{{form.score.label}}</label>
+								{{form.score(class_='form-control')}}
+							</div>
+							<div class="form-group col-6">
+								<label for="attest">{{form.attest.label}}</label>
+								{{form.attest(class_='form-control')}}
+							</div>
+						</div>
+						<button type="submit" class="btn btn-color"><i type="submit" class="glyphicon glyphicon-send"></i>Create</button>
+					</form>
+				{% else %}
+					You need to login to create a new score: <a href="{{request.route_url('login')}}">Login</a>
+				{% endif %}
+				</div>
+
+			</div>
+			
+		</div>
+
+	</div>
+
+</div>
+{% endblock content%}

@@ -1,4 +1,4 @@
-from wtforms import Form, StringField, PasswordField, DecimalField, IntegerField, validators
+from wtforms import Form, StringField, PasswordField, DecimalField, IntegerField, SelectField, DateField, validators
 
 
 def strip_filter(x): return x.strip() if x else None
@@ -21,3 +21,13 @@ class CreateCourseForm(Form):
         min=55, max=155, message="Must Be Between 55-155")])
     courseimage = StringField('Course Image URL', [validators.Length(
         min=1, max=255), validators.URL(message="Must Be a URL")], filters=[strip_filter])
+
+
+class CreateScoreForm(Form):
+    course = SelectField('Course Name', choices=[(
+        'abc', 'ABC Course'), ('123', '123 Course')])
+    rounddate = DateField('Round Date')
+    score = IntegerField('Round Score', [validators.NumberRange(
+        min=55, max=155, message="Must Be Between 55-155")])
+    attest = SelectField('Attesting Golfer', choices=[(
+        'abc', 'ABC User'), ('123', '123 User')])
