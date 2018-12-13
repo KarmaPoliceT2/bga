@@ -4,6 +4,8 @@ from pyramid.security import remember, forget
 from ..services.user import UserService
 from ..models.user import User
 from ..forms import RegistrationForm, CreateCourseForm, CreateScoreForm
+import logging
+log = logging.getLogger(__name__)
 
 
 @view_config(route_name='home', renderer='../templates/index.jinja2')
@@ -55,7 +57,13 @@ def create_course(request):
 @view_config(route_name='createscore', renderer='../templates/createscore.jinja2')
 def create_score(request):
     form = CreateScoreForm(request.POST)
+    username = request.authenticated_userid
+    if username:
+        user_list = UserService.all_users(request=request)
+        form.attest.choices = [(user.pubkey, user.name) for user in user_list]
+        return {'form': form}
     if request.method == "POST" and form.validate():
         # DoStuffToPrepareSubmissionAndSendtoBDB
         return HTTPFound(location=request.route_url('profile'))
-    return {'form': form}
+    else:
+        return HTTPFound(location=request.route_url('login'))

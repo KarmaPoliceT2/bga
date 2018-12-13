@@ -29,5 +29,4 @@ class CreateScoreForm(Form):
     rounddate = DateField('Round Date')
     score = IntegerField('Round Score', [validators.NumberRange(
         min=55, max=155, message="Must Be Between 55-155")])
-    attest = SelectField('Attesting Golfer', choices=[(
-        'abc', 'ABC User'), ('123', '123 User')])
+    attest = SelectField('Attesting Golfer')
