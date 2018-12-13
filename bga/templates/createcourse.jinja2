@@ -1,0 +1,92 @@
+{% extends 'layout.jinja2' %}
+
+{% block title %}
+BGA | Create a Course
+{% endblock title %}
+
+{% block content %}
+<!-- Content -->
+<div id="content">
+
+	<!-- Fluid container -->
+	<div class="container-fluid">
+
+		<!-- Main content -->
+		<div class="row">
+			<div class="main-column col-12">
+
+				<div class="inner">
+				<!-- Login -->
+				{% if request.authenticated_userid %}
+					<form class="form" id="post-comment" action="{{request.route_url('createcourse')}}" method="post">
+						<div class="row">
+							<div class="col-6">
+							{% for error in form.coursename.errors %}
+            					<div class="error">{{ error }}</div>
+        					{% endfor %}
+							</div>
+							<div class="col-6">
+							{% for error in form.courselocation.errors %}
+            					<div class="error">{{error}}</div>
+        					{% endfor %}
+							</div>
+						<div class="row">
+							<div class="form-group col-6">
+								<label for="coursename">{{form.coursename.label}}</label>
+								{{form.coursename(class_='form-control')}}
+							</div>
+							<div class="form-group col-6">
+								<label for="courselocation">{{form.courselocation.label}}</label>
+								{{form.courselocation(class_='form-control')}}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-6">
+							{% for error in form.rating.errors %}
+            					<div class="error">{{ error }}</div>
+        					{% endfor %}
+							</div>
+							<div class="col-6">
+							{% for error in form.slope.errors %}
+            					<div class="error">{{error}}</div>
+        					{% endfor %}
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-6">
+								<label for="rating">{{form.rating.label}}</label>
+								{{form.rating(class_='form-control')}}
+							</div>
+							<div class="form-group col-6">
+								<label for="slope">{{form.slope.label}}</label>
+								{{form.slope(class_='form-control')}}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+							{% for error in form.courseimage.errors %}
+            					<div class="courseimage">{{error}}</div>
+        					{% endfor %}
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-12">
+								<label for="courseimage">{{form.courseimage.label}}</label>
+								{{form.courseimage(class_='form-control')}}
+							</div>
+						</div>
+						<button type="submit" class="btn btn-color"><i type="submit" class="glyphicon glyphicon-send"></i>Create</button>
+					</form>
+				{% else %}
+					You need to login to create a course: <a href="{{request.route_url('login')}}">Login</a>
+				{% endif %}
+				</div>
+
+			</div>
+			
+		</div>
+
+	</div>
+
+</div>
+{% endblock content%}

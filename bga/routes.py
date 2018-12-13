@@ -4,3 +4,8 @@ def includeme(config):
     config.add_route('login', '/login')
     config.add_route('auth', '/auth/{action}')
     config.add_route('register', '/register')
+    config.add_route('courses', '/courses')
+    config.add_route('createcourse', '/createcourse')
+    config.add_route('createscore', '/createscore')
+    config.add_route('signscore', '/signscore/{id}')
+    config.add_route('profile', '/user/{name}')

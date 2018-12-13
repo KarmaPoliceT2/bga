@@ -3,7 +3,7 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.security import remember, forget
 from ..services.user import UserService
 from ..models.user import User
-from ..forms import RegistrationForm
+from ..forms import RegistrationForm, CreateCourseForm
 
 
 @view_config(route_name='home', renderer='../templates/index.jinja2')
@@ -28,7 +28,7 @@ def sign_in_out(request):
             headers = forget(request)
     else:
         headers = forget(request)
-    return HTTPFound(location=request.route_url('home'), headers=headers)
+    return HTTPFound(location=request.route_url('login'), headers=headers)
 
 
 @view_config(route_name='register', renderer='../templates/register.jinja2')
@@ -40,4 +40,13 @@ def register(request):
         new_user.setup_keypair()
         request.dbsession.add(new_user)
         return HTTPFound(location=request.route_url('login'))
+    return {'form': form}
+
+
+@view_config(route_name='createcourse', renderer='../templates/createcourse.jinja2')
+def create_course(request):
+    form = CreateCourseForm(request.POST)
+    if request.method == "POST" and form.validate():
+        # DoStuffToPrepareSubmissionAndSendtoBDB
+        return HTTPFound(location=request.route_url('courses'))
     return {'form': form}
