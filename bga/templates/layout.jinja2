@@ -50,19 +50,20 @@
             <h2>Blockchain Golfers Association</h2>
         </header>
 
+	{% block portfoliocontent %}
+	{% endblock portfoliocontent %}
     </div>
 
     <!-- Main wrapper -->
     <div id="main-wrapper">
 
         <!-- Content -->
-        <div id="content">
+        
 
         {% block content %}
         <p>No Content</p>
         {% endblock content %}
 
-        </div>
 
         <!-- Collapsible sidebar -->
         <div id="sidebar">
@@ -106,9 +107,9 @@
             </footer>
 
         </div>
-
+    {% block portfoliooverlay %}
+    {% endblock portfoliooverlay %}
     </div>
-
     <!-- JavaScripts -->
     <script type='text/javascript' src="{{request.static_url('bga:static/js/jquery.min.js')}}"></script>
     <script type='text/javascript' src="{{request.static_url('bga:static/js/bootstrap.min.js')}}"></script>

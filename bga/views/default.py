@@ -1,6 +1,7 @@
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from pyramid.security import remember, forget
+from bigchaindb_driver import BigchainDB
 from ..services.user import UserService
 from ..models.user import User
 from ..forms import RegistrationForm, CreateCourseForm, CreateScoreForm
@@ -49,8 +50,36 @@ def register(request):
 def create_course(request):
     form = CreateCourseForm(request.POST)
     if request.method == "POST" and form.validate():
-        # DoStuffToPrepareSubmissionAndSendtoBDB
-        return HTTPFound(location=request.route_url('courses'))
+        bdb = BigchainDB(request.registry.settings['bigchaindb.url'])
+        course_asset = {
+            'data': {
+                'course': {
+                    'appname': 'BlockchainGolfers',
+                    'assetclass': 'BGA_GolfCourse',
+                    'coursename': form.coursename.data,
+                    'courselocation': form.courselocation.data
+                }
+            }
+        }
+        course_metadata = {
+            'rating': str(form.rating.data),
+            'slope': str(form.slope.data),
+            'courseimage': str(form.courseimage.data)
+        }
+        user = UserService.by_name(
+            request.authenticated_userid, request=request)
+        prepared_creation_tx = bdb.transactions.prepare(
+            operation='CREATE',
+            signers=user.pubkey,
+            asset=course_asset,
+            metadata=course_metadata
+        )
+        fulfilled_creation_tx = bdb.transactions.fulfill(
+            prepared_creation_tx,
+            private_keys=user.privkey
+        )
+        sent_creation_tx = bdb.transactions.send_commit(fulfilled_creation_tx)
+        return HTTPFound(location=request.route_url('createcourse'))
     return {'form': form}
 
 
@@ -58,12 +87,62 @@ def create_course(request):
 def create_score(request):
     form = CreateScoreForm(request.POST)
     username = request.authenticated_userid
-    if username:
+    if username and request.method == "GET":
         user_list = UserService.all_users(request=request)
         form.attest.choices = [(user.pubkey, user.name) for user in user_list]
+        bdb = BigchainDB(request.registry.settings['bigchaindb.url'])
+        courses = bdb.assets.get(search='BGA_GolfCourse')
+        form.course.choices = [
+            (course['id'], course['data']['course']['coursename']) for course in courses]
         return {'form': form}
-    if request.method == "POST" and form.validate():
-        # DoStuffToPrepareSubmissionAndSendtoBDB
-        return HTTPFound(location=request.route_url('profile'))
+    log.debug(form.validate())
+    if request.method == "POST":
+        user = UserService.by_name(
+            request.authenticated_userid, request=request)
+        bdb = BigchainDB(request.registry.settings['bigchaindb.url'])
+        score_asset = {
+            'data': {
+                'score': {
+                    'appname': 'BlockchainGolfers',
+                    'assetclass': 'BGA_ScoreCard',
+                    'rounddate': str(form.rounddate.data),
+                    'courseid': str(form.course.data),
+                    'roundscore': str(form.score.data),
+                    'roundplayer': str(user.pubkey),
+                    'attestplayername': str(dict(form.attest.choices).get(form.attest.data)),
+                    'attestplayerpubkey': str(form.attest.data)
+                }
+            }
+        }
+        score_metadata = {
+            'scorecardstatus': 'unattested'
+        }
+        prepared_creation_tx = bdb.transactions.prepare(
+            operation='CREATE',
+            signers=user.pubkey,
+            asset=score_asset,
+            metadata=score_metadata
+        )
+        fulfilled_creation_tx = bdb.transactions.fulfill(
+            prepared_creation_tx,
+            private_keys=user.privkey
+        )
+        sent_creation_tx = bdb.transactions.send_commit(fulfilled_creation_tx)
+        log.debug('BDB Transaction ID is %s', fulfilled_creation_tx['id'])
+        return HTTPFound(location=request.route_url('login'))
     else:
         return HTTPFound(location=request.route_url('login'))
+
+
+@view_config(route_name='courses', renderer='../templates/courses.jinja2')
+def courses(request):
+    bdb = BigchainDB(request.registry.settings['bigchaindb.url'])
+    courses = bdb.assets.get(search='BGA_GolfCourse')
+    course_list = []
+    for course in courses:
+        courses_meta = bdb.metadata.get(search=course['id'])
+        log.debug(type(course))
+        log.debug(type(courses_meta))
+        course.update(courses_meta[0])
+        course_list.append(course)
+    return {'courses': course_list}

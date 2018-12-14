@@ -1,0 +1,87 @@
+{% extends 'layout.jinja2' %}
+
+{% block title %}
+BGA | Courses
+{% endblock title %}
+
+{% block portfoliocontent %}
+<!-- Portfolio close button -->
+<a href="#" id="portfolio-close"></a>
+{% endblock portfoliocontent %}
+
+{% block content %}
+			<!-- Content -->
+			<div id="content" class="isotope-container">
+
+				<!-- Fluid container -->
+				<div class="container-fluid">
+
+					<!-- Page heading -->
+					<div id="heading" class="row">
+						<div class="filter col-12">
+							<header>
+								<h1>Courses</h1>
+								<h2>Where We Play</h2>
+							</header>
+						</div>
+					</div>
+
+					
+					<!-- Main content -->
+					<div class="isotope isotope-3 row">
+					{% for gcourse in courses %}
+						<!-- Portfolio item -->
+						<article class="portfolio isotope-item buildings design col-4">
+							<a href="#{{gcourse.id}}" class="image" style="background-image: url({{gcourse.metadata.courseimage}})"></a>
+							<div class="inner">
+								<header>
+									<h3>{{gcourse.data.course.coursename}}</h3>
+								</header>
+							</div>
+						</article>
+					{% endfor %}
+					</div>
+					
+
+				</div>
+
+			</div>
+{% endblock content %}
+{% block portfoliooverlay %}
+			{% for gcourse in courses %}
+			<!-- Portfolio full -->
+			<div id="{{gcourse.id}}" class="portfolio-full portfolio-full-slidedown">
+
+				<!-- Portfolio description -->
+				<div class="portfolio-description">
+					<h3>{{gcourse.data.course.coursename}}</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis libero erat. Integer ac purus est. Proin erat mi, pulvinar ut magna eget, consectetur auctor turpis.</p>
+					<div class="icon-text">
+						<i class="fa fa-check-circle"></i>
+						<p>{{gcourse.metadata.rating}}</p>
+					</div>
+					<div class="icon-text">
+						<i class="fa fa-angle-double-up"></i>
+						<p>{{gcourse.metadata.slope}}</p>
+					</div>
+					<div class="icon-text">
+						<i class="fa fa-thumb-tack"></i>
+						<p>{{gcourse.data.course.courselocation}}</p>
+					</div>
+				</div>
+
+				<!-- Portfolio image slider -->
+				<div class="swiper swiper-container">
+
+					<div class="swiper-wrapper">
+
+						<!-- Slide -->
+						<div class="swiper-slide" style="background-image: url({{gcourse.metadata.courseimage}})"></div>
+
+					</div>
+
+				</div>
+
+			</div>
+		{% endfor %}
+{%endblock portfoliooverlay %}

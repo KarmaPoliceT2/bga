@@ -11,6 +11,16 @@ BGA | Enter a Score
 	<!-- Fluid container -->
 	<div class="container-fluid">
 
+		<!-- Page heading -->
+		<div id="heading" class="row">
+			<div class="filter col-12">
+				<header>
+					<h1>Add Scorecard</h1>
+					<h2>How'd you play today?</h2>
+				</header>
+			</div>
+		</div>
+
 		<!-- Main content -->
 		<div class="row">
 			<div class="main-column col-12">
@@ -19,17 +29,6 @@ BGA | Enter a Score
 				<!-- Login -->
 				{% if request.authenticated_userid %}
 					<form class="form" id="post-comment" action="{{request.route_url('createscore')}}" method="post">
-						<div class="row">
-							<div class="col-6">
-							{% for error in form.course.errors %}
-            					<div class="error">{{ error }}</div>
-        					{% endfor %}
-							</div>
-							<div class="col-6">
-							{% for error in form.rounddate.errors %}
-            					<div class="error">{{error}}</div>
-        					{% endfor %}
-							</div>
 						<div class="row">
 							<div class="form-group col-6">
 								<label for="course">{{form.course.label}}</label>
@@ -47,9 +46,6 @@ BGA | Enter a Score
         					{% endfor %}
 							</div>
 							<div class="col-6">
-							{% for error in form.attest.errors %}
-            					<div class="error">{{error}}</div>
-        					{% endfor %}
 							</div>
 						</div>
 						<div class="row">
