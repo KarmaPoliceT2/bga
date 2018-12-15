@@ -9,3 +9,4 @@ def includeme(config):
     config.add_route('createscore', '/createscore')
     config.add_route('signscore', '/signscore/{id}')
     config.add_route('profile', '/user/{name}')
+    config.scan()

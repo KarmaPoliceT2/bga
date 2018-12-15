@@ -1,0 +1,103 @@
+{% extends 'layout.jinja2' %}
+
+{% block title %}
+BGA | User Profile
+{% endblock title %}
+
+{% block content %}
+<div id="content">
+
+				<!-- Fluid container -->
+				<div class="container-fluid">
+
+					<!-- Page heading -->
+					<div id="heading" class="row">
+						<div class="col-12">
+
+							<header>
+								<h1>Your Profile</h1>
+								<h2>Play On!</h2>
+							</header>
+
+						</div>
+					</div>
+
+					<!-- Main content -->
+					<div class="row">
+						<div class="col-12">
+
+							<!-- Inner -->
+							<article class="inner">
+
+								<div class="row">
+									<div class="col-12">
+										<h4>Verified Scores</h4>
+										<table style="border-spacing:20px 5px;border-collapse:separate;">
+                                        <thead>
+											<td>Date</td>
+											<td>Score</td>
+											<td>Course</td>
+										</thead>
+                                        {% for round in round_list %}
+                                            {% if round['data']['score']['roundplayer'] == userid and round['scorecardstatus'] == 'attested' %}
+                                                <tr>
+												<td>{{round['data']['score']['rounddate']}}</td>
+												<td>{{round['data']['score']['roundscore']}}</td>
+												<td>{{round['course']['coursename']}}</td>
+												</tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                        </table>
+									</div>
+								</div>
+
+								<hr>
+
+								<div class="row">
+									<div class="col-6">
+										<h4>Awaiting My Signature</h4>
+										<table style="border-spacing:20px 5px;border-collapse:separate;">
+                                        <thead>
+											<td></td>
+											<td>Date</td>
+											<td>Score</td>
+											<td>Course</td>
+										</thead>
+                                        {% for round in round_list %}
+                                            {% if round['data']['score']['roundplayer'] != userid and round['scorecardstatus'] == 'awaitingattest' %}
+                                                <tr>
+													<td> 
+													{% if user == loggedinas %}
+														<a href="{{request.route_url('signscore', id=round['id'])}}" class="btn btn-color"><i type="submit" class="glyphicon glyphicon-lock"></i>Sign</button>
+													{% endif %}
+													</td>
+													<td>{{round['data']['score']['rounddate']}}</td>
+													<td>{{round['data']['score']['roundscore']}}</td>
+													<td>{{round['course']['coursename']}}</td>
+												</tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                        </table>
+									</div>
+									<div class="col-6">
+										<h4>Awaiting Attestation</h4>
+										<table style="border-spacing:20px 5px;border-collapse:separate;">
+                                        <thead><td>Date</td><td>Score</td><td>Course</td></thead>
+                                        {% for round in round_list %}
+                                            {% if round['data']['score']['roundplayer'] == userid and round['scorecardstatus'] == 'unattested' %}
+                                                <tr><td>{{round['data']['score']['rounddate']}}</td><td>{{round['data']['score']['roundscore']}}</td><td>{{round['course']['coursename']}}</td></tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                        </table>
+									</div>
+								</div>
+							
+							</article>
+
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+{% endblock content %}
