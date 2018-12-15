@@ -36,32 +36,9 @@ This application is intended to be a prototype for storage of golf scores which 
 ## Diagrams
 The following diagram out the process of creating, signing, attesting, and storing data in the BGA Solution:
 ### Data Model Diagram
+![BGA Data Model Diagram](https://github.com/KarmaPoliceT2/bga/blob/master/docs/BGA_DataModel.png)
 ### Sequence Diagram
-```mermaid
-sequenceDiagram
-User1 ->> BGA: (1) Register
-BGA -->> SQLLite: Create User w/ Keys
-User1 ->> BGA: (2) Login
-BGA -x User1: Session
-User1 ->> BGA: (3) Create Course
-BGA -->> BlockchainDB: New Asset Course (Commit)
-BlockchainDB -->> BGA: Transaction ID (Asset ID)
-BGA -x User1: Asset Created
-User1 ->> BGA: (4) Create Scorecard
-BGA -->> BlockchainDB: New Asset Score Card (Commit)
-BlockchainDB -->> BGA: Transaction ID (Asset ID)
-BGA -->> BlockchainDB: Transfer Asset Score Card (Commit)
-BlockchainDB --x BGA: Asset Transferred (Transaction ID)
-User2 ->> BGA: (5) Login
-BGA -x User2: Session
-User2 ->> BGA: (6) Show Profile
-BGA ->> User2: Profile
-User2 ->> BGA: Sign Score Card
-BGA -->> BlockchainDB: Get Asset and Last Transaction
-BlockchainDB -->> BGA: Assets
-BGA -->> BlockchainDB: Apply User2 Signature and Transfer Asset (Commit)
-BGA ->> User2: Signature Applied
-```
+![BGA Sequence Diagram](https://github.com/KarmaPoliceT2/bga/blob/master/docs/BGA_SequenceDiagram.png)
 ## Last Mile Concerns
 Blockchain is subject to many "last mile" complexities require significant efforts and engineering to close such gaps. Some of the concerns highlighted by this solution are:
 
@@ -71,76 +48,77 @@ Blockchain is subject to many "last mile" complexities require significant effor
 
 ## License Coverage
 My original works herein are released under the MIT License, other licenses to be considered as used in this project are as follows:
-| Name                    | Version    | License                                         |
-|-------------------------|------------|-------------------------------------------------|
-| Click                   | 7.0        | BSD                                             |
-| Jinja2                  | 2.10       | BSD                                             |
-| Mako                    | 1.0.7      | MIT                                             |
-| MarkupSafe              | 1.1.0      | BSD                                             |
-| PasteDeploy             | 2.0.1      | MIT                                             |
-| Pygments                | 2.3.0      | BSD License                                     |
-| SQLAlchemy              | 1.2.15     | MIT License                                     |
-| WTForms                 | 2.2.1      | BSD                                             |
-| WebHelpers2             | 2.0        | UNKNOWN                                         |
-| WebOb                   | 1.8.4      | MIT                                             |
-| WebTest                 | 2.0.32     | MIT                                             |
-| alembic                 | 1.0.5      | MIT                                             |
-| arrow                   | 0.12.1     | Apache 2.0                                      |
-| asn1crypto              | 0.24.0     | MIT                                             |
-| atomicwrites            | 1.2.1      | MIT                                             |
-| attrs                   | 18.2.0     | MIT                                             |
-| autopep8                | 1.4.3      | Expat License                                   |
-| base58                  | 1.0.2      | MIT                                             |
-| bcrypt                  | 3.1.5      | Apache License, Version 2.0                     |
-| beautifulsoup4          | 4.6.3      | MIT                                             |
-| bga                     | 0.0        | UNKNOWN                                         |
-| bigchaindb-driver       | 0.6.2      | Apache Software License 2.0                     |
-| binaryornot             | 0.4.4      | BSD                                             |
-| certifi                 | 2018.11.29 | MPL-2.0                                         |
-| cffi                    | 1.11.5     | MIT                                             |
-| chardet                 | 3.0.4      | LGPL                                            |
-| colorama                | 0.4.1      | BSD                                             |
-| cookiecutter            | 1.6.0      | BSD                                             |
-| coverage                | 4.5.2      | Apache 2.0                                      |
-| cryptoconditions        | 0.8.0      | MIT                                             |
-| cryptography            | 2.3.1      | BSD or Apache License, Version 2.0              |
-| future                  | 0.17.1     | MIT                                             |
-| hupper                  | 1.4.2      | MIT                                             |
-| idna                    | 2.8        | BSD-like                                        |
-| jinja2-time             | 0.2.0      | MIT                                             |
-| more-itertools          | 4.3.0      | MIT                                             |
-| passlib                 | 1.7.1      | BSD                                             |
-| plaster                 | 1.0        | UNKNOWN                                         |
-| plaster-pastedeploy     | 0.6        | UNKNOWN                                         |
-| pluggy                  | 0.8.0      | MIT license                                     |
-| poyo                    | 0.4.2      | MIT                                             |
-| py                      | 1.7.0      | MIT license                                     |
-| pyasn1                  | 0.4.4      | BSD                                             |
-| pycodestyle             | 2.4.0      | Expat license                                   |
-| pycparser               | 2.19       | BSD                                             |
-| pynacl                  | 1.3.0      | Apache License 2.0                              |
-| pyramid                 | 1.10.1     | BSD-derived (http://www.repoze.org/LICENSE.txt) |
-| pyramid-debugtoolbar    | 4.5        | BSD                                             |
-| pyramid-jinja2          | 2.7        | BSD-derived (http://www.repoze.org/LICENSE.txt) |
-| pyramid-mako            | 1.0.2      | BSD-derived (http://www.repoze.org/LICENSE.txt) |
-| pyramid-retry           | 1.0        | UNKNOWN                                         |
-| pyramid-tm              | 2.2.1      | BSD-derived (http://www.repoze.org/LICENSE.txt) |
-| pysha3                  | 1.0.2      | PSFL (Keccak: CC0 1.0 Universal)                |
-| pytest                  | 4.0.1      | MIT license                                     |
-| pytest-cov              | 2.6.0      | MIT                                             |
-| python-dateutil         | 2.7.5      | Dual License                                    |
-| python-editor           | 1.0.3      | Apache                                          |
-| python-rapidjson        | 0.6.3      | MIT License                                     |
-| python-rapidjson-schema | 0.1.1      | Apache2                                         |
-| repoze.lru              | 0.7        | BSD-derived (http://www.repoze.org/LICENSE.txt) |
-| requests                | 2.21.0     | Apache 2.0                                      |
-| six                     | 1.12.0     | MIT                                             |
-| transaction             | 2.4.0      | ZPL 2.1                                         |
-| translationstring       | 1.3        | BSD-like (http://repoze.org/license.html)       |
-| urllib3                 | 1.24.1     | MIT                                             |
-| venusian                | 1.1.0      | BSD-derived (http://www.repoze.org/LICENSE.txt) |
-| waitress                | 1.1.0      | ZPL 2.1                                         |
-| whichcraft              | 0.5.2      | BSD                                             |
-| zope.deprecation        | 4.4.0      | ZPL 2.1                                         |
-| zope.interface          | 4.6.0      | ZPL 2.1                                         |
-| zope.sqlalchemy         | 1.0        | ZPL 2.1                                         |
+
+ Name                    | Version    | License                                         
+-------------------------|------------|-------------------------------------------------
+ Click                   | 7.0        | BSD                                             
+ Jinja2                  | 2.10       | BSD                                             
+ Mako                    | 1.0.7      | MIT                                             
+ MarkupSafe              | 1.1.0      | BSD                                             
+ PasteDeploy             | 2.0.1      | MIT                                             
+ Pygments                | 2.3.0      | BSD License                                     
+ SQLAlchemy              | 1.2.15     | MIT License                                     
+ WTForms                 | 2.2.1      | BSD                                             
+ WebHelpers2             | 2.0        | UNKNOWN                                         
+ WebOb                   | 1.8.4      | MIT                                             
+ WebTest                 | 2.0.32     | MIT                                             
+ alembic                 | 1.0.5      | MIT                                             
+ arrow                   | 0.12.1     | Apache 2.0                                      
+ asn1crypto              | 0.24.0     | MIT                                             
+ atomicwrites            | 1.2.1      | MIT                                             
+ attrs                   | 18.2.0     | MIT                                             
+ autopep8                | 1.4.3      | Expat License                                   
+ base58                  | 1.0.2      | MIT                                             
+ bcrypt                  | 3.1.5      | Apache License, Version 2.0                     
+ beautifulsoup4          | 4.6.3      | MIT                                             
+ bga                     | 0.0        | UNKNOWN                                         
+ bigchaindb-driver       | 0.6.2      | Apache Software License 2.0                     
+ binaryornot             | 0.4.4      | BSD                                             
+ certifi                 | 2018.11.29 | MPL-2.0                                         
+ cffi                    | 1.11.5     | MIT                                             
+ chardet                 | 3.0.4      | LGPL                                            
+ colorama                | 0.4.1      | BSD                                             
+ cookiecutter            | 1.6.0      | BSD                                             
+ coverage                | 4.5.2      | Apache 2.0                                      
+ cryptoconditions        | 0.8.0      | MIT                                             
+ cryptography            | 2.3.1      | BSD or Apache License, Version 2.0              
+ future                  | 0.17.1     | MIT                                             
+ hupper                  | 1.4.2      | MIT                                             
+ idna                    | 2.8        | BSD-like                                        
+ jinja2-time             | 0.2.0      | MIT                                             
+ more-itertools          | 4.3.0      | MIT                                             
+ passlib                 | 1.7.1      | BSD                                             
+ plaster                 | 1.0        | UNKNOWN                                         
+ plaster-pastedeploy     | 0.6        | UNKNOWN                                         
+ pluggy                  | 0.8.0      | MIT license                                     
+ poyo                    | 0.4.2      | MIT                                             
+ py                      | 1.7.0      | MIT license                                     
+ pyasn1                  | 0.4.4      | BSD                                             
+ pycodestyle             | 2.4.0      | Expat license                                   
+ pycparser               | 2.19       | BSD                                             
+ pynacl                  | 1.3.0      | Apache License 2.0                              
+ pyramid                 | 1.10.1     | BSD-derived (http://www.repoze.org/LICENSE.txt) 
+ pyramid-debugtoolbar    | 4.5        | BSD                                             
+ pyramid-jinja2          | 2.7        | BSD-derived (http://www.repoze.org/LICENSE.txt) 
+ pyramid-mako            | 1.0.2      | BSD-derived (http://www.repoze.org/LICENSE.txt) 
+ pyramid-retry           | 1.0        | UNKNOWN                                         
+ pyramid-tm              | 2.2.1      | BSD-derived (http://www.repoze.org/LICENSE.txt) 
+ pysha3                  | 1.0.2      | PSFL (Keccak: CC0 1.0 Universal)                
+ pytest                  | 4.0.1      | MIT license                                     
+ pytest-cov              | 2.6.0      | MIT                                             
+ python-dateutil         | 2.7.5      | Dual License                                    
+ python-editor           | 1.0.3      | Apache                                          
+ python-rapidjson        | 0.6.3      | MIT License                                     
+ python-rapidjson-schema | 0.1.1      | Apache2                                         
+ repoze.lru              | 0.7        | BSD-derived (http://www.repoze.org/LICENSE.txt) 
+ requests                | 2.21.0     | Apache 2.0                                      
+ six                     | 1.12.0     | MIT                                             
+ transaction             | 2.4.0      | ZPL 2.1                                         
+ translationstring       | 1.3        | BSD-like (http://repoze.org/license.html)       
+ urllib3                 | 1.24.1     | MIT                                             
+ venusian                | 1.1.0      | BSD-derived (http://www.repoze.org/LICENSE.txt) 
+ waitress                | 1.1.0      | ZPL 2.1                                         
+ whichcraft              | 0.5.2      | BSD                                             
+ zope.deprecation        | 4.4.0      | ZPL 2.1                                         
+ zope.interface          | 4.6.0      | ZPL 2.1                                         
+ zope.sqlalchemy         | 1.0        | ZPL 2.1                                         
