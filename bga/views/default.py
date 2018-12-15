@@ -19,7 +19,7 @@ def login(request):
     username = request.authenticated_userid
     if username:
         user = UserService.by_name(username, request=request)
-        return HTTPFound(location=request.route_url('/user/', name=user.pubkey), headers=headers)
+        return HTTPFound(location=request.route_url('profile', name=user.pubkey))
     return {'user': request.authenticated_userid}
 
 
@@ -239,4 +239,4 @@ def sign_card(request):
         )
         sent_transfer_tx = bdb.transactions.send_commit(fulfilled_transfer_tx)
         log.debug('BDB Transaction ID is %s', fulfilled_transfer_tx['id'])
-    return HTTPFound(location=request.route_url('profile', name=user.pubkey))
+    return HTTPFound(location=request.route_url('profile', name=signing_user.pubkey))

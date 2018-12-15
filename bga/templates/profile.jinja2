@@ -84,7 +84,7 @@ BGA | User Profile
 										<table style="border-spacing:20px 5px;border-collapse:separate;">
                                         <thead><td>Date</td><td>Score</td><td>Course</td></thead>
                                         {% for round in round_list %}
-                                            {% if round['data']['score']['roundplayer'] == userid and round['scorecardstatus'] == 'unattested' %}
+                                            {% if round['data']['score']['roundplayer'] == userid and round['scorecardstatus'] == 'awaitingattest' %}
                                                 <tr><td>{{round['data']['score']['rounddate']}}</td><td>{{round['data']['score']['roundscore']}}</td><td>{{round['course']['coursename']}}</td></tr>
                                             {% endif %}
                                         {% endfor %}
