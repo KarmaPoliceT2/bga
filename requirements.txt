@@ -36,7 +36,7 @@ py==1.7.0
 pyasn1==0.4.4
 pycodestyle==2.4.0
 pycparser==2.19
-Pygments==2.3.0
+Pygments==2.7.4
 pynacl==1.1.0
 pyramid==1.10.1
 pyramid-debugtoolbar==4.5
