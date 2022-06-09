@@ -14,7 +14,7 @@ cffi==1.11.5
 chardet==3.0.4
 Click==7.0
 colorama==0.4.1
-cookiecutter==1.6.0
+cookiecutter==2.1.1
 coverage==4.5.2
 cryptoconditions==0.8.0
 cryptography==2.3.1
